@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CartItem from "./CartItem";
-import { CLEAR_CART } from "../redux/ActionTypes";
+import { CLEAR_CART, GET_TOTAL } from "../redux/ActionTypes";
 
 import { useSelector, useDispatch } from "react-redux";
 const CartContainer = () => {
 	const { cart, total } = useSelector((state) => state);
+	console.log(total);
 	const dispatch = useDispatch();
+	useEffect(() => {
+		console.log("running get total");
+		dispatch({ type: GET_TOTAL });
+	}, [dispatch, cart]);
 
 	if (cart.length === 0) {
 		return (

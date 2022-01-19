@@ -6,7 +6,7 @@ import {
 	INCREASE,
 	REMOVE,
 	GET_TOTAL,
-	GET_AMOUNT,
+	TOGGLE_AMOUNT,
 	CLEAR_CART,
 } from "./ActionTypes";
 
@@ -51,6 +51,29 @@ const reducer = (state, action) => {
 			return { ...state, cart: [...state.cart] };
 		}
 		case REMOVE:
+			return {
+				...state,
+				cart: state.cart.filter((item) => item.id !== action.payload),
+			};
+		case GET_TOTAL: {
+			let { total, amount } = state.cart.reduce(
+				(cartTotal, cartItem) => {
+					const { price, amount } = cartItem;
+					let itemTotal = price * amount;
+					cartTotal.total += itemTotal;
+					cartTotal.amount += amount;
+					return cartTotal;
+				},
+				{ total: 0, amount: 0 }
+			);
+			total = parseFloat(total.toFixed(2));
+			return {
+				...state,
+				total,
+				amount,
+			};
+		}
+		case TOGGLE_AMOUNT:
 			return {
 				...state,
 				cart: state.cart.filter((item) => item.id !== action.payload),
