@@ -19,6 +19,13 @@ const initalState = {
 };
 const reducer = (state, action) => {
 	switch (action.type) {
+		case CLEAR_CART:
+			return {
+				...state,
+				cart: [],
+				total: 0,
+				amount: 0,
+			};
 		default:
 			return state;
 	}
