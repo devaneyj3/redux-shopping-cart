@@ -33,8 +33,10 @@ const reducer = (state, action) => {
 				cart: [],
 			};
 		case INCREASE:
-			console.log("increasing");
-			return { ...state };
+			const id = action.payload;
+			let foundItem = state.cart.find((item) => item.id === id);
+			foundItem.amount = foundItem.amount + 1;
+			return { ...state, cart: [...state.cart] };
 		case REMOVE:
 			return {
 				...state,
