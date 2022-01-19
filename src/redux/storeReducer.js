@@ -27,22 +27,14 @@ const reducer = (state, action) => {
 				amount: 0,
 			};
 		case DECREASE: {
-			const { id, amount } = action.payload;
-			let foundItem = state.cart.find((item) => item.id === id);
+			let tempCart = state.cart.map((cartItem) => {
+				if (cartItem.id === action.payload) {
+					cartItem = { ...cartItem, amount: cartItem.amount - 1 };
+				}
+				return cartItem;
+			});
 
-			if (amount === 1) {
-				return {
-					...state,
-					cart: state.cart.filter((item) => item.id !== action.payload.id),
-				};
-			} else {
-				foundItem.amount = foundItem.amount - 1;
-
-				return {
-					...state,
-					cart: [...state.cart],
-				};
-			}
+			return { ...state, cart: tempCart };
 		}
 		case INCREASE: {
 			const id = action.payload;

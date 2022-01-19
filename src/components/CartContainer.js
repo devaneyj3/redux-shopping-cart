@@ -5,10 +5,8 @@ import { CLEAR_CART, GET_TOTAL } from "../redux/ActionTypes";
 import { useSelector, useDispatch } from "react-redux";
 const CartContainer = () => {
 	const { cart, total } = useSelector((state) => state);
-	console.log(total);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		console.log("running get total");
 		dispatch({ type: GET_TOTAL });
 	}, [dispatch, cart]);
 

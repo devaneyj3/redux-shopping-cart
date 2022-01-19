@@ -5,6 +5,16 @@ import { useDispatch } from "react-redux";
 
 const CartItem = ({ img, title, price, amount, id }) => {
 	const dispatch = useDispatch();
+
+	const removeOrDeleteItem = () => {
+		console.log(amount);
+		if (amount === 1) {
+			dispatch({ type: REMOVE, payload: id });
+		} else {
+			dispatch({ type: DECREASE, payload: id });
+		}
+	};
+
 	return (
 		<div className="cart-item">
 			<img src={img} alt={title} />
@@ -31,7 +41,7 @@ const CartItem = ({ img, title, price, amount, id }) => {
 				<p className="amount">{amount}</p>
 				{/* decrease amount */}
 				<button
-					onClick={() => dispatch({ type: DECREASE, payload: { id, amount } })}
+					onClick={() => removeOrDeleteItem(amount, id)}
 					className="amount-btn">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 						<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
