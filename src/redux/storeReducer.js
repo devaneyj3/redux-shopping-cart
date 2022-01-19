@@ -26,6 +26,17 @@ const reducer = (state, action) => {
 				total: 0,
 				amount: 0,
 			};
+		case DECREASE:
+			console.log("decreasing");
+			return {
+				...state,
+			};
+		case INCREASE:
+			console.log("increasing");
+			return { ...state };
+		case REMOVE:
+			console.log("removing");
+			return { ...state };
 		default:
 			return state;
 	}
