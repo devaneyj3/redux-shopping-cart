@@ -10,7 +10,7 @@ const initalState = {
 	total: 0,
 	amount: 0,
 };
-const reducer = (state, action) => {
+const reducer = (state = [], action) => {
 	switch (action.type) {
 		case CLEAR_CART:
 			return {
