@@ -1,4 +1,6 @@
 import { createStore } from "redux";
+// items
+import cartItems from "../cart-items";
 import {
 	DECREASE,
 	INCREASE,
@@ -8,19 +10,21 @@ import {
 	CLEAR_CART,
 } from "./ActionTypes";
 
+import React from "react";
+import { Provider } from "react-redux";
 const initalState = {
-	count: 0,
+	cart: cartItems,
+	total: 0,
+	amount: 0,
 };
-export const reducer = (state, action) => {
+const reducer = (state, action) => {
 	switch (action.type) {
-		case DECREASE:
-			return { count: state.count - 1 };
-		case INCREASE:
-			return { count: state.count + 1 };
-		case CLEAR_CART:
-			return { count: 0 };
 		default:
 			return state;
 	}
 };
-export const store = createStore(reducer, initalState);
+const store = createStore(reducer, initalState);
+
+export const ReduxProvider = ({ children }) => {
+	return <Provider store={store}>{children}</Provider>;
+};
