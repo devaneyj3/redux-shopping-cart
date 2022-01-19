@@ -1,14 +1,7 @@
 import { createStore } from "redux";
 // items
 import cartItems from "../cart-items";
-import {
-	DECREASE,
-	INCREASE,
-	REMOVE,
-	GET_TOTAL,
-	TOGGLE_AMOUNT,
-	CLEAR_CART,
-} from "./ActionTypes";
+import { REMOVE, GET_TOTAL, TOGGLE_AMOUNT, CLEAR_CART } from "./ActionTypes";
 
 import React from "react";
 import { Provider } from "react-redux";
@@ -26,21 +19,21 @@ const reducer = (state, action) => {
 				total: 0,
 				amount: 0,
 			};
-		case DECREASE: {
-			let tempCart = state.cart.map((cartItem) => {
-				if (cartItem.id === action.payload) {
-					cartItem = { ...cartItem, amount: cartItem.amount - 1 };
-				}
-				return cartItem;
-			});
 
+		case TOGGLE_AMOUNT: {
+			const { op, id } = action;
+			let tempCart = state.cart.map((item) => {
+				if (item.id === id) {
+					if (op === "inc") {
+						item = { ...item, amount: item.amount + 1 };
+					}
+					if (op === "dec") {
+						item = { ...item, amount: item.amount - 1 };
+					}
+				}
+				return item;
+			});
 			return { ...state, cart: tempCart };
-		}
-		case INCREASE: {
-			const id = action.payload;
-			let foundItem = state.cart.find((item) => item.id === id);
-			foundItem.amount = foundItem.amount + 1;
-			return { ...state, cart: [...state.cart] };
 		}
 		case REMOVE:
 			return {
@@ -65,11 +58,6 @@ const reducer = (state, action) => {
 				amount,
 			};
 		}
-		case TOGGLE_AMOUNT:
-			return {
-				...state,
-				cart: state.cart.filter((item) => item.id !== action.payload),
-			};
 		default:
 			return state;
 	}
