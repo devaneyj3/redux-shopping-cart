@@ -3,7 +3,7 @@ import { DECREASE, INCREASE, REMOVE } from "../redux/ActionTypes";
 
 import { useDispatch } from "react-redux";
 
-const CartItem = ({ img, title, price, amount }) => {
+const CartItem = ({ img, title, price, amount, id }) => {
 	const dispatch = useDispatch();
 	return (
 		<div className="cart-item">
@@ -13,7 +13,7 @@ const CartItem = ({ img, title, price, amount }) => {
 				<h4 className="item-price">${price}</h4>
 				{/* remove button */}
 				<button
-					onClick={() => dispatch({ type: REMOVE })}
+					onClick={() => dispatch({ type: REMOVE, payload: id })}
 					className="remove-btn">
 					remove
 				</button>

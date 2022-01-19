@@ -30,13 +30,16 @@ const reducer = (state, action) => {
 			console.log("decreasing");
 			return {
 				...state,
+				cart: [],
 			};
 		case INCREASE:
 			console.log("increasing");
 			return { ...state };
 		case REMOVE:
-			console.log("removing");
-			return { ...state };
+			return {
+				...state,
+				cart: state.cart.filter((item) => item.id !== action.payload),
+			};
 		default:
 			return state;
 	}
