@@ -1,16 +1,14 @@
 import React from "react";
-import { TOGGLE_AMOUNT, REMOVE } from "../redux/ActionTypes";
-
+import { remove, toggle } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ img, title, price, amount, id }) => {
 	const dispatch = useDispatch();
-
 	const removeOrDeleteItem = () => {
 		if (amount === 1) {
-			dispatch({ type: REMOVE, payload: id });
+			dispatch(remove(id));
 		} else {
-			dispatch({ type: TOGGLE_AMOUNT, id: id, op: "dec" });
+			dispatch(toggle(id, "dec"));
 		}
 	};
 
@@ -21,9 +19,7 @@ const CartItem = ({ img, title, price, amount, id }) => {
 				<h4>{title}</h4>
 				<h4 className="item-price">${price}</h4>
 				{/* remove button */}
-				<button
-					onClick={() => dispatch({ type: REMOVE, payload: id })}
-					className="remove-btn">
+				<button onClick={() => dispatch(remove(id))} className="remove-btn">
 					remove
 				</button>
 			</div>
@@ -31,7 +27,7 @@ const CartItem = ({ img, title, price, amount, id }) => {
 				{/* increase amount */}
 				<button
 					onClick={() => {
-						dispatch({ type: TOGGLE_AMOUNT, id: id, op: "inc" });
+						dispatch(toggle(id, "inc"));
 					}}
 					className="amount-btn">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
